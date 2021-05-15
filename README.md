@@ -2,11 +2,17 @@ python3 -m venv env - инициализация виртуального окр
 
 Активация окружения
 
-*Unix
+*Unix:
 
-source env/bin/activate - вход в виртуальное окружение
+[
 
-Windows
+source env/bin/activate
+
+			]
+
+Windows:
+
+[
 
 cd env/Scripts
 
@@ -15,5 +21,7 @@ activate
 cd ..
 
 cd ..
+
+	]
 
 pip install -r requirements.txt - установка зависимостей

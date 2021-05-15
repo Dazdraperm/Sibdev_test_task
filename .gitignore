@@ -121,7 +121,7 @@ celerybeat.pid
 
 # Environments
 SibDevenv
-.env
+src/.env
 .venv
 env/
 venv/
