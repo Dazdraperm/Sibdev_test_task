@@ -1,4 +1,3 @@
-from django.db import IntegrityError
 from api.models import FileCSV, Customer, PurchaseDate, Item, ItemAndCustomer
 
 
