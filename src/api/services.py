@@ -1,5 +1,6 @@
-from api.models import FileCSV, Customer, PurchaseDate, Item, ItemAndCustomer
+import json
 
+from api.models import FileCSV, Customer, PurchaseDate, Item, ItemAndCustomer
 
 """ Начало фукнций для GET поинта FileCSV """
 
@@ -67,7 +68,9 @@ def create_data_deal(id_file_csv):
 
 
 def get_gems_of_customers(customers, gems_of_customers, list_gems_of_customers):
+    spent_money_of_customers = {}
     for customer in customers:
+        spent_money_of_customers[customer.login] = customer.spent_money
         purchases = ItemAndCustomer.objects.filter(customer=customer).select_related('item')
         gems = []
 
@@ -76,8 +79,7 @@ def get_gems_of_customers(customers, gems_of_customers, list_gems_of_customers):
             list_gems_of_customers.append(purchase.item.name)
 
         gems_of_customers[customer.login] = gems
-
-    return gems_of_customers, list_gems_of_customers
+    return gems_of_customers, list_gems_of_customers, spent_money_of_customers
 
 
 def clear_gems_without_instance(list_gems) -> list:
@@ -94,6 +96,7 @@ def clear_gems_without_instance(list_gems) -> list:
 
 
 def clear_gems_with_instance(list_gems, instance_list_gems) -> list:
+    print(list_gems)
     # с последнего индекса length -1 | до последнего элемента(доходит не до последнего а до предпоследнего) | с шагом -1
     for index_gem in range(len(list_gems) - 1, -1, -1):
         gem = list_gems.pop(index_gem)
@@ -103,14 +106,31 @@ def clear_gems_with_instance(list_gems, instance_list_gems) -> list:
     return list_gems
 
 
+def generate_json(dict_gems_of_customers, spent_money_of_customers):
+    print(dict_gems_of_customers)
+    final_data = {}
+    info_users = {}
+    index = 0
+    for gem_of_customer in dict_gems_of_customers:
+        index += 1
+        username = {'username': gem_of_customer}
+        gems = {'gems': dict_gems_of_customers[gem_of_customer]}
+        spent_money = {'spent_money': spent_money_of_customers[gem_of_customer]}
+        info_users[f'user_{index}'] = username, spent_money, gems
+    final_data['response'] = info_users
+    return final_data
+
+
 def get_data():
     top_count = 5
     customers = Customer.objects.all().order_by('-spent_money')[:top_count]
     dict_gems_of_customers = {}
     list_gems_of_customers = []
 
-    dict_gems_of_customers, list_gems_of_customers = get_gems_of_customers(customers, dict_gems_of_customers,
-                                                                           list_gems_of_customers)
+    dict_gems_of_customers, list_gems_of_customers, spent_money_of_customers = get_gems_of_customers(
+        customers,
+        dict_gems_of_customers,
+        list_gems_of_customers)
 
     list_gems_of_customers = clear_gems_without_instance(list_gems_of_customers)
 
@@ -118,7 +138,8 @@ def get_data():
         dict_gems_of_customers[customer] = list(
             set(clear_gems_with_instance(dict_gems_of_customers[customer], list_gems_of_customers)))
 
-    print(dict_gems_of_customers)
+    print(generate_json(dict_gems_of_customers, spent_money_of_customers))
+    return generate_json(dict_gems_of_customers, spent_money_of_customers)
 
 
 """ Конец фукнций для GET поинта info-top-client """

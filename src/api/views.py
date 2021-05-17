@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from api.models import FileCSV
-from api.serializers import FileCSVSerializer
+from api.serializers import FileCSVSerializer, InfoTopClientSerializer
 from api.services import create_data_deal, get_data
 
 
@@ -46,5 +46,4 @@ class FileCSVList(viewsets.ModelViewSet):
 class InfoTopClientView(APIView):
 
     def get(self, request):
-        get_data()
-        return Response('hello')
+        return Response(get_data())
