@@ -4,10 +4,11 @@ import traceback
 from rest_framework import viewsets, status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from api.models import FileCSV
 from api.serializers import FileCSVSerializer
-from api.services import create_data_deal
+from api.services import create_data_deal, get_data
 
 
 @api_view(['GET'])
@@ -40,3 +41,10 @@ class FileCSVList(viewsets.ModelViewSet):
         except Exception:
             return Response(
                 {'status': f'Error, Desc: {traceback.format_exc()} - в процессе обработки файла произошла ошибка.'})
+
+
+class InfoTopClientView(APIView):
+
+    def get(self, request):
+        get_data()
+        return Response('hello')
