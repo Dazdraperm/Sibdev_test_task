@@ -1,28 +1,28 @@
 1-2 - Запуск проекта
 
-3 - Работа с проектом 
+3 - Работа с проектом
 
 1. With docker
 
-1.1 docker-compose build
+    1.1 docker-compose build
 
-1.2 docker-compose up -d
+    1.2 docker-compose up -d
 
 2.Without docker
 
-2.1.python3 -m venv env - инициализация виртуального окружения
+    2.1.python3 -m venv env - инициализация виртуального окружения
 
-2.2.Активация окружения
+    2.2.Активация окружения
 
-*Unix:
+        *Unix:
 
-source env/bin/activate
+        source env/bin/activate
 
-2.3.pip install -r requirements.txt - установка зависимостей
+    2.3.pip install -r requirements.txt - установка зависимостей
 
-2.4.python src/manage.py migrate - запуск миграций
+    2.4.python src/manage.py migrate - запуск миграций
 
-2.5.python src/manage.py runserver - запуск приложения
+    2.5.python src/manage.py runserver - запуск приложения
 
 3 Endpoints:
 
