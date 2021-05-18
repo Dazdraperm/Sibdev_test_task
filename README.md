@@ -2,7 +2,7 @@
 
 3 - Работа с проектом
 
-1. With docker
+1.With docker
 
     1.1 docker-compose build
 
@@ -24,7 +24,7 @@
 
     2.5.python src/manage.py runserver - запуск приложения
 
-3 Endpoints:
+3.Endpoints:
 
     3.1 FileCSV/ (POST)
 
