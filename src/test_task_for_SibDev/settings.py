@@ -24,7 +24,7 @@ SECRET_KEY = 'django-insecure-f*5a$poe^&+k1*gt&385dr(+=z#z5_)_o)=22dxk&zh@82la$@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", "true").lower() == "true"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.99.100']
 
 # Application definition
 
@@ -87,7 +87,7 @@ DATABASES = {
         'NAME': 'sibdev',
         'USER': 'postgres',
         'PASSWORD': 'zinnurik123321',
-        'HOST': '192.168.99.100',
+        'HOST': os.environ.get("DB_HOST", '192.168.99.100'),
         'PORT': '5432',
 
     }

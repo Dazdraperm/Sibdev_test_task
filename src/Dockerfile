@@ -16,6 +16,7 @@ RUN pip install -r /user/src/requirements.txt
 
 # copy project
 COPY . /user/src/sibdev
+
+EXPOSE 8000
 #
-#CMD ["python", "manage.py", "migrate"]
-#CMD ["python", "/user/src/sibdev/manage.py", "runserver", "0.0.0.0:8000"]
+CMD python /user/src/sibdev/manage.py migrate --noinput && python /user/src/sibdev/manage.py runserver 0.0.0.0:8000

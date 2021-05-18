@@ -107,7 +107,6 @@ def clear_gems_with_instance(list_gems, instance_list_gems) -> list:
 
 
 def generate_json(dict_gems_of_customers, spent_money_of_customers):
-    print(dict_gems_of_customers)
     final_data = {}
     info_users = {}
     index = 0
@@ -121,7 +120,9 @@ def generate_json(dict_gems_of_customers, spent_money_of_customers):
     return final_data
 
 
-def get_data():
+def get_data() -> dict:
+    """ Возвращает словарь с данными о юзерах в количестве top_count """
+
     top_count = 5
     customers = Customer.objects.all().order_by('-spent_money')[:top_count]
     dict_gems_of_customers = {}
@@ -138,7 +139,6 @@ def get_data():
         dict_gems_of_customers[customer] = list(
             set(clear_gems_with_instance(dict_gems_of_customers[customer], list_gems_of_customers)))
 
-    print(generate_json(dict_gems_of_customers, spent_money_of_customers))
     return generate_json(dict_gems_of_customers, spent_money_of_customers)
 
 

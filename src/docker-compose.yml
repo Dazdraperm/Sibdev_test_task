@@ -2,26 +2,21 @@ version: "3.7"
 
 
 services:
-#  sibdb:
-#    image: postgres:10
-#    ports:
-#      - 192.168.99.100:5432:5432
-#    volumes:
-#      - pg_data:/var/lib/postgresql/data
-#    environment:
-#      POSTGRES_DB: sibdev
-#      POSTGRES_USER: postgres
-#      POSTGRES_PASSWORD: zinnurik123321
+  sibdb:
+    image: postgres:10
+    environment:
+      POSTGRES_DB: sibdev
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: zinnurik123321
 
   web:
     build:
       context: .
       dockerfile: Dockerfile
-    command: bash -c "python /user/src/sibdev/manage.py migrate --noinput && python /user/src/sibdev/manage.py runserver 0.0.0.0:8000"
+    environment:
+      DB_HOST: sibdb
+      DB_PASSWORD: zinnurik123321
     ports:
       - 8000:8000
-#    depends_on:
-#       - sibdb
-
-#volumes:
-#  pg_data:
+    depends_on:
+       - sibdb
